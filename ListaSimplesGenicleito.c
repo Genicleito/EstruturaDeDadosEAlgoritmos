@@ -56,8 +56,7 @@ int main(){
 		scanf("%d", &OP);
 
 			if (OP == 1) {
-				Inicializa(&y); 
-				//break;
+				Inicializa(&y);
 			}
 
 			else if(OP == 2) {
@@ -68,7 +67,6 @@ int main(){
 					printf("%d esta na lista.\n\n", num);
 				}else
 					printf("%d nao esta na lista.\n\n", num);
-				//break;
 			}
 
 
@@ -80,7 +78,6 @@ int main(){
 					printf("\nInsercao realizada com sucesso!\n");
 				}else
 					printf("A lista ja esta cheia ou o numero ja esta na lista!");
-				//break;
 			}
 			else if(OP == 4) {
 				int x;
