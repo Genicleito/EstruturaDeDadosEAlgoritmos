@@ -30,11 +30,14 @@ _Bool consulta(ListaInt l, int x){
 }
 
 _Bool insere(ListaInt *l, int x){
-	if(consulta(*l, x))
-		return true;
 	NoLista *p = (NoLista *) malloc(sizeof(NoLista));
-	if(p == NULL);
+	if(p == NULL)
 		return false;
+	p->chave = x;
+	p->prox = *l;
+	*l = p;
+	printf("%d", p->chave);
+	return true;
 }
 
 int main(int argc, char **argv){
@@ -62,7 +65,6 @@ int main(int argc, char **argv){
 				}else
 					printf("%d nao esta na lista.\n\n", num);
 			}
-/*
 			else if(OP == 3){
 				int x;
 				printf("\nNumero para inserir na lista: ");
@@ -70,8 +72,9 @@ int main(int argc, char **argv){
 				if(insere(&y, x)){
 					printf("\nInsercao realizada com sucesso!\n");
 				}else
-					printf("A lista ja esta cheia ou o numero ja esta na lista!");
+					printf("A lista ja esta cheia ou o numero ja esta na lista!\n");
 			}
+			/*
 			else if(OP == 4) {
 				int x;
 				printf("\nNumero para retirar da lista: ");
