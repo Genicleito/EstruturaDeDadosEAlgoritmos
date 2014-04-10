@@ -14,45 +14,32 @@ void Inicializa(ListaInt *l){
 }
 
 _Bool consulta(ListaInt l, int x){
-	if(l.nelems == 0){
-		printf("Sem elementos na lista!\n");
+	int i;
+	for(i=0; (i<l.nelems) && (l.chaves[i] != x); i++);
+	if(i == l.nelems)
 		return false;
-	}
-	else{
-		int i=0;
-		for(i=0; i<MTAMLISTA; i++){
-			if(x == l.chaves[i])
-				return true;
-		}
-		return false;
-	}
-
+	return true;
 }
 
 _Bool insere(ListaInt *l, int x){
-	int i=0;
-	for(i=0; (i<l->nelems) && (l->chaves[i] != x);i++);
-	if((i == l->nelems) && (l->nelems == MTAMLISTA -1))
-		printf("A lista ja esta cheia!\n\n");
-	else{
-		l->chaves[i] = x;	
-		l->nelems = l->nelems + 1;
-		printf("\n%d\n%d\n%d\n\n", l->chaves[0], l->chaves[1], l->chaves[2]);
-	}
+	if (consulta(*l, x))
+		return true;
+	if(l->nelems == MTAMLISTA)
+		return false;
+	l->chaves[l->nelems] = x;
+	(l->nelems)++;
+	return true;
 }
 
 _Bool retira(ListaInt *l, int x){
 	int i=0;
 	for(i=0; (i<l->nelems) && (l->chaves[i] != x);i++);
-	if((i == l->nelems) && (l->nelems == MTAMLISTA))
-		printf("\n%d nao esta na lista.\n\n", x);
-	else{
-		l->chaves[i] = 0;
-		l->chaves[i] = l->chaves[l->nelems - 1];
-		l->chaves[l->nelems - 1] = 0;
-		l->nelems = l->nelems - 1;
-		printf("\n%d\n%d\n%d\n\n", l->chaves[0], l->chaves[1], l->chaves[2]);
-	}
+	if (consulta(*l, x) == false)
+		return false;
+	l->chaves[i] = l->chaves[l->nelems - 1];
+	l->nelems = l->nelems - 1;
+	return true;
+	
 }
 
 int main(){
@@ -89,16 +76,23 @@ int main(){
 				int x;
 				printf("\nNumero para inserir na lista: ");
 				scanf("%d", &x);
-				insere(&y, x);
+				if(insere(&y, x)){
+					printf("\nInsercao realizada com sucesso!\n");
+				}else
+					printf("A lista ja esta cheia ou o numero ja esta na lista!");
 				//break;
 			}
 			else if(OP == 4) {
 				int x;
 				printf("\nNumero para retirar da lista: ");
 				scanf("%d", &x);
-				retira(&y, x);
+				if(retira(&y, x))
+					printf("\nNumero retirado da lista com sucesso!\n");
+				else
+					printf("\nO numero não esta na lista!\n");
 			}
 	}
+
 
 	return 0;
 }
