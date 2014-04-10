@@ -29,6 +29,14 @@ _Bool consulta(ListaInt l, int x){
 	return false;
 }
 
+_Bool insere(ListaInt *l, int x){
+	if(consulta(*l, x))
+		return true;
+	NoLista *p = (NoLista *) malloc(sizeof(NoLista));
+	if(p == NULL);
+		return false;
+}
+
 int main(int argc, char **argv){
 	ListaInt y;
 	int OP = 0;
