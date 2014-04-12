@@ -19,25 +19,22 @@ void inicializa(ListaInt *l){
 	*l = NULL;
 }
 
-_Bool consulta(ListaInt l, int x){
-	NoLista *p = l;
-	while(p != NULL){
-		if(p->chave == x)
-			return true;
-		p = p->prox;
-	}	
-	return false;
+_Bool consulta(ListaInt *l, int x){
+	NoLista *p;
+	for(p = *l; (p) && (p->chave != x); p->prox);
+	return p;
 }
 
 _Bool insere(ListaInt *l, int x){
-	NoLista *p = (NoLista *) malloc(sizeof(NoLista));
-	if(p == NULL)
-		return false;
-	p->chave = x;
-	p->prox = *l;
-	*l = p;
-	printf("%d", p->chave);
-	return true;
+	NoLista *p;
+	if (consulta(l, x))
+		return true;
+	if (p = (NoLista *)malloc(sizeof(NoLista))){
+		p->chave = x;
+		p->prox = *l;
+		*l = p;
+	}
+	return p;
 }
 
 int main(int argc, char **argv){
@@ -60,7 +57,7 @@ int main(int argc, char **argv){
 				int num;
 				printf("\nNumero para consultar na lista: ");
 				scanf("%d", &num);
-				if(consulta(y, num)){
+				if(consulta(&y, num)){
 					printf("%d esta na lista.\n\n", num);
 				}else
 					printf("%d nao esta na lista.\n\n", num);
@@ -82,7 +79,7 @@ int main(int argc, char **argv){
 				if(retira(&y, x))
 					printf("\nNumero retirado da lista com sucesso!\n");
 				else
-					printf("\nO numero não esta na lista!\n");
+					printf("\nO numero nÃ£o esta na lista!\n");
 			}
 			*/
 	}
