@@ -12,7 +12,7 @@ typedef struct ElemListaInt{
 	struct ElemListaInt *prox;
 }NoLista;
 
-typedef NoLista *ListaInt;
+typedef NoLista* ListaInt;
 
 
 void inicializa(ListaInt *l){
@@ -21,8 +21,10 @@ void inicializa(ListaInt *l){
 
 _Bool consulta(ListaInt *l, int x){
 	NoLista *p;
-	for(p = *l; (p) && (p->chave != x); p->prox);
-	return p;
+	for(p = *l; (p != NULL) && (p->chave != x); p = p->prox);
+	if (p == NULL)
+		return false;
+	return true;
 }
 
 _Bool insere(ListaInt *l, int x){
@@ -79,11 +81,10 @@ int main(int argc, char **argv){
 				if(retira(&y, x))
 					printf("\nNumero retirado da lista com sucesso!\n");
 				else
-					printf("\nO numero nÃ£o esta na lista!\n");
+					printf("\nO numero nao esta na lista!\n");
 			}
 			*/
 	}
-
 
 	return 0;
 }
