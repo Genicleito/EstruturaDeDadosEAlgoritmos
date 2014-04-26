@@ -39,6 +39,25 @@ _Bool insere(ListaInt *l, int x){
 	return p;
 }
 
+_Bool retira(ListaInt *l, int x){
+	NoLista *p, *a = NULL;	
+	if((!(l)) || (!(consulta(l, x))))
+		return false;
+	p = *l;	
+	while(p->chave != x){
+		a = p;
+		p = p->prox;
+	}
+	if(!(a)){
+		*l = p->prox;
+		free(p);
+		return true;
+	}
+	a->prox = p->prox;
+	free(p);
+	return true;
+}
+
 int main(int argc, char **argv){
 	ListaInt y;
 	int OP = 0;
@@ -73,7 +92,6 @@ int main(int argc, char **argv){
 				}else
 					printf("A lista ja esta cheia ou o numero ja esta na lista!\n");
 			}
-			/*
 			else if(OP == 4) {
 				int x;
 				printf("\nNumero para retirar da lista: ");
@@ -83,7 +101,6 @@ int main(int argc, char **argv){
 				else
 					printf("\nO numero nao esta na lista!\n");
 			}
-			*/
 	}
 
 	return 0;
