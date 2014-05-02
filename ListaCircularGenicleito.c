@@ -45,7 +45,7 @@ _Bool insere(ListaInt *l, int x){
 	return true;
 }
 
-_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD				//Erro na segunda remoção. Remoção de dois numeros.
+_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD	//Sem erros... até agora! :v
 	ListaInt p, a;
 	if (!consulta(l,x))
 		return false;
