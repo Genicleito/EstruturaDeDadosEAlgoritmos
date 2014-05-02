@@ -20,43 +20,45 @@ void inicializa(ListaInt *l){
 }
 
 _Bool consulta(ListaInt *l, int x){
-	NoListaInt *p;			//l é do tipo ListaInt e p é do tipo NoLista int, embora seja a mesma estrutura, o compilador mostra um Warning!
-	p = l;					//Quando usar p = *l ou p = l	?
-	
-	if(*l != NULL){
-		do
-			p=p->prox;
-		while((p->chave != x) && (p != l));
-	}
-	if(p->chave == x)
-		return true;
-	else
+	if (!(*l))
 		return false;
+	ListaInt p;
+	for (p = *l; (p->prox != *l)&&(p->chave!=x); p = p->prox);
+	return p;
 }
-
-
 
 _Bool insere(ListaInt *l, int x){
-	NoListaInt *p;
-	
-	if(consulta(*l, x))
+	ListaInt p;
+	if (consulta(l,x))
 		return true;
-	if(p = (NoListaInt *) malloc(sizeof(NoListaInt))){
-		if(l){
-			p->chave = x;
-			p->prox = (*l)->prox;
-			(*l)->prox = p;
-		}else{
-			*l = p;
-			p->prox = p;
-		}
-		return true;
+	if (!(p = (NoListaInt *) malloc (sizeof(NoListaInt))))
+		return false;
+	p->chave = x;
+	if (!(*l)){
+		*l = p;
+		p->prox = p;
 	}
-	return false;
+	else{
+		p->prox = (*l)->prox;
+		(*l)->prox = p;
+	}
+	return true;
 }
 
-_Bool retira(ListaInt *l, int x){
-	
+_Bool retira(ListaInt *l, int x){	//Ajuda do jovem Junot! xD	//Erro na segunda remoção. Remoção de dois numeros.
+	ListaInt p, a;
+	if (!consulta(l,x))
+		return false;
+	for (p = *l, a = p->prox; a->chave != x; p = p->prox, a = a->prox);
+	// a vai receber ao final do for o nó com o numero a ser retirado e p o nó anterior
+	if (p == a){
+		free(a);
+		*l = NULL;
+		return true;
+	}
+	p->prox = a->prox;
+	free(a);
+	return true;
 }
 
 int main(){
