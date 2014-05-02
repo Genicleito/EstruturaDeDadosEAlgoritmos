@@ -45,8 +45,8 @@ _Bool insere(ListaInt *l, int x){
 	return true;
 }
 
-_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD	//Sem erros... até agora! :v
-	ListaInt p, a;
+_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD				//Erro na segunda remoção. Remoção de dois numeros.
+	ListaInt p, a;				//ERRO: Após remover um número, o programa afirma que os outros foram removidos.
 	if (!consulta(l,x))
 		return false;
 	if((*l) == (*l)->prox){
@@ -57,6 +57,7 @@ _Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD	//Sem erros... at�
 	a = *l;
 	while(a->prox != (*l))
 		a = a->prox;
+	p = *l;
 	a->prox = p->prox;
 	*l = p->prox;
 	free(p);
