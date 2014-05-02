@@ -45,19 +45,21 @@ _Bool insere(ListaInt *l, int x){
 	return true;
 }
 
-_Bool retira(ListaInt *l, int x){	//Ajuda do jovem Junot! xD	//Erro na segunda remoção. Remoção de dois numeros.
+_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD				//Erro na segunda remoção. Remoção de dois numeros.
 	ListaInt p, a;
 	if (!consulta(l,x))
 		return false;
-	for (p = *l, a = p->prox; a->chave != x; p = p->prox, a = a->prox);
-	// a vai receber ao final do for o nó com o numero a ser retirado e p o nó anterior
-	if (p == a){
-		free(a);
+	if((*l) == (*l)->prox){
+		free(*l);
 		*l = NULL;
 		return true;
 	}
-	p->prox = a->prox;
-	free(a);
+	a = *l;
+	while(a->prox != (*l))
+		a = a->prox;
+	a->prox = p->prox;
+	*l = p->prox;
+	free(p);
 	return true;
 }
 
