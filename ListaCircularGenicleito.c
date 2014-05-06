@@ -1,8 +1,8 @@
 /*
  * ListasCircularesGenicleito.c
- * 
+ *
  * Copyright 2014 Genicleito <genicleito@genicleito-Infoway-a7520>
- * 
+ *
  */
 
 #include <stdio.h>
@@ -11,9 +11,7 @@
 typedef struct NoListaInt{
 	int chave;
 	struct NoListaInt *prox;
-}NoListaInt;
-
-typedef NoListaInt* ListaInt;
+}NoListaInt, *ListaInt;
 
 void inicializa(ListaInt *l){
 	*l = NULL;
@@ -23,15 +21,17 @@ _Bool consulta(ListaInt *l, int x){
 	if (!(*l))
 		return false;
 	ListaInt p;
-	for (p = *l; (p->prox != *l)&&(p->chave!=x); p = p->prox);
-	return p;
+	if((*l)->chave == x)
+		return true;
+	for(p = *l; (p->chave != x) && (p->prox != *l); p=p->prox);
+	return true;
 }
 
 _Bool insere(ListaInt *l, int x){
 	ListaInt p;
 	if (consulta(l,x))
 		return true;
-	if (!(p = (NoListaInt *) malloc (sizeof(NoListaInt))))
+	if (!(p = (ListaInt *) malloc (sizeof(ListaInt))))
 		return false;
 	p->chave = x;
 	if (!(*l)){
@@ -45,21 +45,19 @@ _Bool insere(ListaInt *l, int x){
 	return true;
 }
 
-_Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD				//Erro na segunda remoção. Remoção de dois numeros.
-	ListaInt p, a;				//ERRO: Após remover um número, o programa afirma que os outros foram removidos.
-	if (!consulta(l,x))
+_Bool retira(ListaInt *l, int x){		//ERRO: Apos remover um numero, o programa afirma que os outros foram removidos.
+	ListaInt p, a;
+	if (!(consulta(l,x)))
 		return false;
-	if((*l) == (*l)->prox){
+	if(*l == (*l)->prox){
 		free(*l);
 		*l = NULL;
 		return true;
 	}
-	a = *l;
-	while(a->prox != (*l))
-		a = a->prox;
-	p = *l;
+	for(p = *l; p->chave != x; a = p, p=p->prox);
+	if(a->prox == *l)
+		*l = p->prox;
 	a->prox = p->prox;
-	*l = p->prox;
 	free(p);
 	return true;
 }
@@ -67,7 +65,7 @@ _Bool retira(ListaInt *l, int x){		//Ajuda do jovem Junot! xD				//Erro na segun
 int main(){
 	ListaInt y;
 	int OP = 1, x;
-	
+
 	while((OP < 5) && (OP > 0)){
 		printf("\t\t-- Lista Circular - By Genicleito Goncalves--\n\n");
 		printf("Menu:\n1. Inicializar Lista;");
@@ -76,7 +74,7 @@ int main(){
 		printf("\n4. Retirar da Lista.");
 		printf("\n\nOpcao Desejada: ");
 		scanf("%d", &OP);
-		
+
 		if(OP == 1)
 			inicializa(&y);
 		else if(OP == 2){
@@ -95,7 +93,7 @@ int main(){
 			else
 				printf("\nO numero %d nao foi inserido, pode nao haver memoria suficiente!\n\n");
 		}
-		else{
+		else if (OP == 4){
 			printf("\nNumero para remover da Lista: ");
 			scanf("%d", &x);
 			if(retira(&y, x))
@@ -104,6 +102,6 @@ int main(){
 				printf("\nO numero %d nao foi removido! Pode nao estar na lista ou ela pode estar vazia!\n\n");
 		}
 	}
-	
+
 	return 0;
 }
