@@ -1,4 +1,9 @@
-//Desenvolvido por Genicleito Gonçalves
+/*
+ * FilaDinamicaGenicleito.c
+ * 
+ * Copyright 2014 Genicleito <genicleito@genicleito-Infoway-a7520>
+ * 
+ */
 #define MTAMLISTA 10
 #include <stdio.h>
 #include <stdbool.h>
@@ -13,16 +18,16 @@ void Inicializa(ListaInt *l){
 	printf("\n\n");
 }
 
-_Bool consulta(ListaInt l, int x){
+_Bool consulta(ListaInt *l, int x){
 	int i;
-	for(i=0; (i<l.nelems) && (l.chaves[i] != x); i++);
-	if(i == l.nelems)
+	for(i=0; (i<l->nelems) && (l->chaves[i] != x); i++);
+	if(i == l->nelems)
 		return false;
 	return true;
 }
 
 _Bool insere(ListaInt *l, int x){
-	if (consulta(*l, x))
+	if (consulta(l, x))
 		return true;
 	if(l->nelems == MTAMLISTA)
 		return false;
@@ -34,7 +39,7 @@ _Bool insere(ListaInt *l, int x){
 _Bool retira(ListaInt *l, int x){
 	int i=0;
 	for(i=0; (i<l->nelems) && (l->chaves[i] != x);i++);
-	if (consulta(*l, x) == false)
+	if (consulta(l, x) == false)
 		return false;
 	l->chaves[i] = l->chaves[l->nelems - 1];
 	l->nelems = l->nelems - 1;
@@ -44,7 +49,7 @@ _Bool retira(ListaInt *l, int x){
 
 int main(){
 	ListaInt y;
-	int OP=0;
+	int OP=0, x;
 
 	while(OP < 5){
 		printf("\t\t-- Lista Encadeada - By Genicleito Goncalves--\n\n");
@@ -58,20 +63,15 @@ int main(){
 			if (OP == 1) {
 				Inicializa(&y);
 			}
-
 			else if(OP == 2) {
-				int num;
 				printf("\nNumero para consultar na lista: ");
-				scanf("%d", &num);
-				if(consulta(y, num)){
-					printf("%d esta na lista.\n\n", num);
+				scanf("%d", &x);
+				if(consulta(&y, x)){
+					printf("%d esta na lista.\n\n", x);
 				}else
-					printf("%d nao esta na lista.\n\n", num);
+					printf("%d nao esta na lista.\n\n", x);
 			}
-
-
 			else if(OP == 3){
-				int x;
 				printf("\nNumero para inserir na lista: ");
 				scanf("%d", &x);
 				if(insere(&y, x)){
@@ -80,16 +80,13 @@ int main(){
 					printf("A lista ja esta cheia ou o numero ja esta na lista!");
 			}
 			else if(OP == 4) {
-				int x;
 				printf("\nNumero para retirar da lista: ");
 				scanf("%d", &x);
 				if(retira(&y, x))
-					printf("\nNumero retirado da lista com sucesso!\n");
+					printf("\n%d foi retirado da lista com sucesso!\n", x);
 				else
-					printf("\nO numero não esta na lista!\n");
+					printf("\n%d nao esta na lista!\n", x);
 			}
 	}
-
-
 	return 0;
 }
