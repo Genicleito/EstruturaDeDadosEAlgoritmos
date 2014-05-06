@@ -21,7 +21,7 @@ _Bool consulta(ListaInt *l, int x){
 	for(p = *l; (p != NULL) && (p->chave != x); p = p->prox);
 	if (!(p))
 		return false;
-	return true;
+	return p;
 }
 
 _Bool insere(ListaInt *l, int x){
