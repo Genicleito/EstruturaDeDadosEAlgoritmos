@@ -10,9 +10,7 @@
 typedef struct ElemListaInt{
 	int chave;
 	struct ElemListaInt *prox;
-}NoLista;
-
-typedef NoLista* ListaInt;
+}NoLista, *ListaInt;
 
 
 void inicializa(ListaInt *l){
@@ -41,7 +39,7 @@ _Bool insere(ListaInt *l, int x){
 
 _Bool retira(ListaInt *l, int x){
 	NoLista *p, *a = NULL;	
-	if((!(l)) || (!(consulta(l, x))))
+	if(!(consulta(l, x)))
 		return false;
 	p = *l;	
 	while(p->chave != x){
