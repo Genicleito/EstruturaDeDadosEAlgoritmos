@@ -31,10 +31,7 @@ _Bool desenfileira(FilaInt *f, int *x){
 	if(f->nelems == 0)
 		return false;
 	*x = f->chave[f->prim];
-	if(f->prim < MTAMFILA)
-		(f->prim)++;
-	else
-		f->prim = 0;
+	f->prim = (f->prim)++ % MTAMFILA;
 	(f->nelems)--;
 	return true;
 }
