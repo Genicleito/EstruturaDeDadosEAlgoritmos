@@ -56,7 +56,7 @@ _Bool retira(ListaInt *l, int x){
 		return true;
 	}
 	p->ant->prox = p->prox;
-	if(!(p->prox))
+	if(p->prox)
 		p->prox->ant = p->ant;
 	free(p);
 	return true;
