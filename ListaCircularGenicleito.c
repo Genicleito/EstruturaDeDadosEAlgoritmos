@@ -21,10 +21,9 @@ _Bool consulta(ListaInt *l, int x){
 	if (!(*l))
 		return false;
 	ListaInt p;
-
 	for(p = *l; (p->chave != x) && (p->prox != *l); p=p->prox);
-		if(p->chave == x)
-			return true;
+	if(p->chave == x)
+		return true;
 	return false;
 }
 
@@ -46,9 +45,9 @@ _Bool insere(ListaInt *l, int x){
 	return true;
 }
 
-_Bool retira(ListaInt *l, int x){		//ERRO: Apos remover um numero, o programa afirma que os outros foram removidos.
+_Bool retira(ListaInt *l, int x){
 	ListaInt p, a;
-	
+
 	if (!(consulta(l,x)))
 		return false;
 	if(*l == (*l)->prox){
@@ -57,6 +56,13 @@ _Bool retira(ListaInt *l, int x){		//ERRO: Apos remover um numero, o programa af
 		return true;
 	}
 	for(p = *l; p->chave != x; a = p, p=p->prox);
+	if(p == *l){
+		a = p->prox;
+		p->chave = a->chave;
+		p->prox = a->prox;
+		free(a);
+		return true;
+	}
 	a->prox = p->prox;
 	free(p);
 	return true;
