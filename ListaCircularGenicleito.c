@@ -47,8 +47,7 @@ _Bool insere(ListaInt *l, int x){
 }
 
 _Bool retira(ListaInt *l, int x){		//ERRO: Apos remover um numero, o programa afirma que os outros foram removidos.
-	ListaInt p, a, pa;
-	pa = *l;
+	ListaInt p, a;
 	
 	if (!(consulta(l,x)))
 		return false;
@@ -63,15 +62,11 @@ _Bool retira(ListaInt *l, int x){		//ERRO: Apos remover um numero, o programa af
 	return true;
 }
 
-void listar(ListaInt *y){
-	
-}
-
 int main(){
 	ListaInt y;
 	int OP = 1, x;
 
-	while((OP < 6) && (OP > 0)){
+	while((OP < 5) && (OP > 0)){
 		printf("\t\t-- Lista Circular - By Genicleito Goncalves--\n\n");
 		printf("Menu:\n1. Inicializar Lista;");
 		printf("\n2. Consultar na Lista;");
@@ -106,8 +101,6 @@ int main(){
 			else
 				printf("\nO numero %d nao foi removido! Pode nao estar na lista ou ela pode estar vazia!\n\n");
 		}
-		else if(OP == 5)
-			listar(&y);
 	}
 
 	return 0;
