@@ -62,7 +62,6 @@ int main(){
 				inicializa(&f);
 			}
 			else if(OP == 2){
-				int x;
 				printf("\nNumero para inserir na lista: ");
 				scanf("%d", &x);
 				if(enfileira(&f, x)){
@@ -71,7 +70,6 @@ int main(){
 					printf("\nNao foi possivel enfileirar o numero %d.\n", x);
 			}
 			else if(OP == 3){
-				int x;
 				printf("\nNumero para desenfileirar da Fila: ");
 				scanf("%d", &x);
 				if(desenfileira(&f, &x))
