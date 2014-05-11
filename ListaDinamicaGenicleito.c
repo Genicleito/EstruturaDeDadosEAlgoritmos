@@ -58,7 +58,7 @@ _Bool retira(ListaInt *l, int x){
 
 int main(int argc, char **argv){
 	ListaInt y;
-	int OP = 0;
+	int OP = 0, num;
 	while(OP < 5){
 		printf("\t\t-- Lista Encadeada - By Genicleito Goncalves--\n\n");
 		printf("Menu:\n1. Inicializar Lista;");
@@ -73,7 +73,6 @@ int main(int argc, char **argv){
 			}
 
 			else if(OP == 2) {
-				int num;
 				printf("\nNumero para consultar na lista: ");
 				scanf("%d", &num);
 				if(consulta(&y, num)){
@@ -82,19 +81,17 @@ int main(int argc, char **argv){
 					printf("%d nao esta na lista.\n\n", num);
 			}
 			else if(OP == 3){
-				int x;
 				printf("\nNumero para inserir na lista: ");
-				scanf("%d", &x);
-				if(insere(&y, x)){
+				scanf("%d", &num);
+				if(insere(&y, num)){
 					printf("\nInsercao realizada com sucesso!\n");
 				}else
 					printf("A lista ja esta cheia ou o numero ja esta na lista!\n");
 			}
 			else if(OP == 4) {
-				int x;
 				printf("\nNumero para retirar da lista: ");
-				scanf("%d", &x);
-				if(retira(&y, x))
+				scanf("%d", &num);
+				if(retira(&y, num))
 					printf("\nNumero retirado da lista com sucesso!\n");
 				else
 					printf("\nO numero nao esta na lista!\n");
