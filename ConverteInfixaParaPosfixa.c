@@ -1,5 +1,5 @@
 /*
- * ConverteInfixaParaPosfixa.c
+ * PilhaSimplesGenicleito.c
  *
  * Copyright 2014 Genicleito <genicleito@genicleito-Infoway-a7520>
  *
@@ -12,20 +12,7 @@
 #include <stdbool.h>
 #define N 20
 
-typedef struct NoPilhaInt{
-	char chave[N];
-	int nelems;
-}PilhaInt;
-
-void empilha(PilhaInt *y, char x){
-	y->chave[y->nelems] = x;
-	(y->nelems)++;
-}
-
-void desempilha(PilhaInt *y, char *x){
-	*x = y->chave[y->nelems - 1];
-	(y->nelems)--;
-}
+char Posfixa[N];
 
 _Bool priori(char aux, char t){
 	if(((aux == '*') || (aux == '/')) && ((t == '+') || (t == '-')))
@@ -34,54 +21,50 @@ _Bool priori(char aux, char t){
 		return false;
 }
 
-void ConverteInfixaParaPosfixa(PilhaInt *p, char *Posfixa[]){
+void ConverteInfixaParaPosfixa(char *p[]){
 	char t;
 	char aux[N];
-	int i=0, cont=0;
-	int j = p->nelems;
-	while(i < p->nelems){
-		t = p->chave[i];
+	int i, cont, j=0;
+	for(i=0; p[i] != '\0'; i++, cont++);
+	i=0;
+	while(i < cont){
+		t = p[i];
 		if((t != '(') && (t != '[') && (t != '{') && (t != ')') && (t != ']') && (t != '}'))
 			Posfixa[i] = t;
 		else if((t == '+') || (t == '-') || (t == '/') || (t == '*')){
-			if(((aux[cont] == '+') || (aux[cont] == '-') || (aux[cont] == '/') || (aux[cont] == '*'))){
-				if(!(priori(aux[cont], t))){
-					desempilha(p, aux[cont]);
-					cont++;
-				}else{
-					empilha(Posfixa[i], aux[cont]);
-					cont++;
-					desempilha(p, aux[cont]);
+			if( (i > 1) && ((aux[i-1] == '+') || (aux[i-1] == '-') || (aux[i-1] == '/') || (aux[i-1] == '*'))){
+				if(!(priori(aux[i], t))){
+					aux[i] = t;
+					j++;
 				}
-			}else{
-				desempilha(p, aux[cont]);
-				cont++;
-			}
+				else{
+					Posfixa[i] = aux[i];
+					aux[i] = t;
+					j++;
+				}
+			}else
+				aux[i] = t;
 		}else if(t == '('){
-			desempilha(p, aux[cont]);
-			cont++;
-		}else{
-			for(; cont != 0; cont--){
-				if(aux[cont] != '(')
-					empilha(Posfixa[i], aux[cont]);
-			}
+			aux[i] = t;
+			j++;	
+		}
+		if (i+2 == cont){
+			int k=i+1;
+			for(; j != 0; j--)
+				if(aux[j-1] != '(')
+					Posfixa[k] = aux[j-1];
 		}		
 	i++;
 	}
+	Posfixa[i] = '\0';
 }
 
 int main(){
-	PilhaInt y;
-	char Posfixa[N];
 	int i=0;
 	printf("Digite uma expressao Infixa:\n");
-	scanf("%s", y.chave);
-	printf("\n%s", Posfixa);
-	while(y.chave[i] != '\0'){
-		y.nelems++;
-		i++;
-	}
-	ConverteInfixaParaPosfixa(&y, Posfixa);
+	scanf("%s", Posfixa);
+	ConverteInfixaParaPosfixa(&Posfixa);
+	printf("%s", Posfixa);
 	
 	return 0;
 }
