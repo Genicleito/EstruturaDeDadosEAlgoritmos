@@ -1,62 +1,70 @@
+/*
+ * PilhaSimplesGenicleito.c
+ *
+ * Copyright 2014 Genicleito <genicleito@genicleito-Infoway-a7520>
+ *
+ */
+ 
+ //OBS: AINDA EM CRIAÇÃO
+ 
+#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#define N 20
 
-typedef struct NoPilhaInt{
-	int chave;
-	struct NoPilhaInt *prox;
-}NoPilhaInt, *Topo;
+char Posfixa[N];
 
-void inicializa(Topo *y){
-	*y = NULL;
-}
-
-_Bool empilha(Topo *y, int x){
-	NoPilhaInt *p;
-	if(p = (NoPilhaInt *) malloc (sizeof(NoPilhaInt))){
-		p->chave = x;
-		p->prox = *y;
-		*y = p;
-	}
-	return p;
-}
-
-_Bool desempilha(Topo *y, int *x){
-	NoPilhaInt *p;
-	if(!(p = *y))
+_Bool priori(char aux, char t){
+	if(((aux == '*') || (aux == '/')) && ((t == '+') || (t == '-')))
+		return true;
+	else
 		return false;
-	*x = p->chave;
-	*y = p->prox;
-	free(p);
-	return true;
+}
+
+void ConverteInfixaParaPosfixa(char *p[]){
+	char t;
+	char aux[N];
+	int i, cont, j=0;
+	for(i=0; p[i] != '\0'; i++, cont++);
+	i=0;
+	while(i < cont){
+		t = p[i];
+		if((t != '(') && (t != '[') && (t != '{') && (t != ')') && (t != ']') && (t != '}'))
+			Posfixa[i] = t;
+		else if((t == '+') || (t == '-') || (t == '/') || (t == '*')){
+			if( (i > 1) && ((aux[i-1] == '+') || (aux[i-1] == '-') || (aux[i-1] == '/') || (aux[i-1] == '*'))){
+				if(!(priori(aux[i], t))){
+					aux[i] = t;
+					j++;
+				}
+				else{
+					Posfixa[i] = aux[i];
+					aux[i] = t;
+					j++;
+				}
+			}else
+				aux[i] = t;
+		}else if(t == '('){
+			aux[i] = t;
+			j++;	
+		}
+		if (i+2 == cont){
+			int k=i+1;
+			for(; j != 0; j--)
+				if(aux[j-1] != '(')
+					Posfixa[k] = aux[j-1];
+		}		
+	i++;
+	}
+	Posfixa[i] = '\0';
 }
 
 int main(){
-	Topo f;
-	inicializa(&f);
+	int i=0;
+	printf("Digite uma expressao Infixa:\n");
+	scanf("%s", Posfixa);
+	ConverteInfixaParaPosfixa(&Posfixa);
+	printf("%s", Posfixa);
 	
-	int x, OP=1;
-
-	while((OP >= 1) && (OP <= 3)){
-		printf("\t\t-- Pilha Dinamicamente Encadeada - By Genicleito Goncalves--\n\n");
-		printf("\n1. Empilhar;");
-		printf("\n2. Desempilhar.");
-		printf("\n\nOpcao Desejada: ");
-		scanf("%d", &OP);
-			if(OP == 1){
-				printf("\nNumero para empilhar: ");
-				scanf("%d", &x);
-				if(empilha(&f, x)){
-					printf("\nEmpilhado %d com sucesso!\n", x);
-				}else
-					printf("\nNao foi possivel empilhar o numero %d.\n", x);
-			}
-			else if(OP == 2){
-				if(desempilha(&f, &x))
-					printf("\nO valor %d foi desempilhado!\n", x);
-				else
-					printf("\nA Pilha esta vazia!\n");
-			}
-	}
-	return 0;	
+	return 0;
 }
