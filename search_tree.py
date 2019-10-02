@@ -39,10 +39,10 @@ def search(s, dic):
         return False
     sub_tree = dic
     for c in s:
-        if (sub_tree == {}) or (c not in sub_tree.keys()):
-            return False
-        else:
+        try:
             sub_tree = sub_tree[c]
+        except:
+            return False
     return True if end_of_word in sub_tree.keys() else False
 
 
