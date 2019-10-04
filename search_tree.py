@@ -1,11 +1,9 @@
 t = "{text to alphabet here}"
 s = "{text to search here}"
 end_of_word = "_\0_"	# represents the character that marks the end of the word
-# alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
 
 def insert(t, dic):
-	"""
+    """
     Inserts the 't' element in the dictionary. Each character of 't' it will be a node in dictionary tree.
     Return the dictionary 'dic' with the characters of 't' as tree nodes.
 
@@ -28,7 +26,7 @@ def insert(t, dic):
         return dic
 
 def search(s, dic):
-	"""
+    """
     Returns True if the string s was found and False otherwise.
 
     Parameters:
@@ -47,9 +45,9 @@ def search(s, dic):
 
 
 # inserting words in the dictionary
-_dic = {}
+dic_tree = {}
 for term in t.upper().split():
-    _dic = insert(term, _dic)
+    dic_tree = insert(term, dic_tree)
 
 # show the terms found
 for term in s.upper().split():
