@@ -51,5 +51,5 @@ for term in t.upper().split():
 
 # show the terms found
 for term in s.upper().split():
-	if(term, search(term, dic_tree)):
-        print (term)
+    if(search(term, dic_tree)):
+        print(term)
