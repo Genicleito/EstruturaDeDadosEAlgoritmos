@@ -41,7 +41,12 @@ def search(s, dic):
             sub_tree = sub_tree[c]
         except:
             return False
-    return True if end_of_word in sub_tree.keys() else False
+    try:
+      sub_tree[end_of_word]
+    except:
+      return False
+    return True
+    #return True if end_of_word in sub_tree.keys() else False
 
 
 # inserting words in the dictionary
