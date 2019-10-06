@@ -25,12 +25,12 @@ def insert(t, dic):
 #             dic[t] = {end_of_word: {}}
 #         return dic
     else:
-		try:
-			dic[t[0]]
-		except:
-			dic[t[0]] = {}
-		dic[t[0]] = insert(t[1:], dic[t[0]])
-		return dic
+        try:
+            dic[t[0]]
+        except:
+            dic[t[0]] = {}
+        dic[t[0]] = insert(t[1:], dic[t[0]])
+        return dic
 #         if t[0] not in dic.keys(): # costly operation if there are too many nodes at the current tree level.
 #             dic[t[0]] = {}
 #         dic[t[0]] = insert(t[1:], dic[t[0]])
