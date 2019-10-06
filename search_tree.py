@@ -25,7 +25,7 @@ def insert(t, dic):
 #             dic[t] = {end_of_word: {}}
 #         return dic
     else:
-        try:
+		try:
 			dic[t[0]]
 		except:
 			dic[t[0]] = {}
@@ -57,7 +57,7 @@ def search(s, dic):
     except:
       return False
     return True
-    #return True if end_of_word in sub_tree.keys() else False
+    # return True if end_of_word in sub_tree.keys() else False
 
 
 # inserting words in the dictionary
