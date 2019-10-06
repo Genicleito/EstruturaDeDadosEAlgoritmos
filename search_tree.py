@@ -4,7 +4,7 @@ end_of_word = "_\0_"	# represents the character that marks the end of the word
 
 def insert(t, dic):
     """
-    Inserts the 't' element in the dictionary. Each character of 't' it will be a node in dictionary tree.
+    Recursive function that inserts the 't' element in the dictionary. Each character of 't' it will be a node in dictionary tree.
     Return the dictionary 'dic' with the characters of 't' as tree nodes.
 
     Parameters:
@@ -14,16 +14,27 @@ def insert(t, dic):
     if dic == {}:
         dic = {t[0]: {}}
     if len(t) == 1:
-        if t in dic.keys():
+        try: # using 'try' the computational cost is lower
             dic[t][end_of_word] = {}
-        else:
+        except:
             dic[t] = {end_of_word: {}}
         return dic
+#         if t in dic.keys(): # using 'if' and 'in' the computational cost is higher
+#             dic[t][end_of_word] = {}
+#         else:
+#             dic[t] = {end_of_word: {}}
+#         return dic
     else:
-        if t[0] not in dic.keys():
-            dic[t[0]] = {}
-        dic[t[0]] = insert(t[1:], dic[t[0]])
-        return dic
+        try:
+			dic[t[0]]
+		except:
+			dic[t[0]] = {}
+		dic[t[0]] = insert(t[1:], dic[t[0]])
+		return dic
+#         if t[0] not in dic.keys():
+#             dic[t[0]] = {}
+#         dic[t[0]] = insert(t[1:], dic[t[0]])
+#         return dic
 
 def search(s, dic):
     """
