@@ -55,7 +55,7 @@ dic_tree = {}
 for term in t.upper().split():
     dic_tree = insert(term, dic_tree)
 
-# show the terms found
+# show found terms
 for term in s.upper().split():
     if(search(term, dic_tree)):
         print(term)
